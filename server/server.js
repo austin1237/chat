@@ -39,3 +39,6 @@ sockets.setUp(io, db)
 
 // Attach Http Routes
 messageRouter.setUpRoutes(app);
+
+
+module.exports = app

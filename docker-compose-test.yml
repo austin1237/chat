@@ -1,22 +1,18 @@
 version: '3'
 services:
-
   client:
     build: ./client
-    command: 'npm start'
-    ports:
-      - 3000:3000
-      - 35729:35729
-    volumes:
-      - ./client/:/usr/app
-      - /usr/app/node_modules
+    command: 'npm test'
+    environment:
+      CI: "true"
+    
 
   server:
     build: ./server
-    command: 'npm start'
+    command: 'npm test'
     volumes:
       - ./server:/app
-      - /app/node_modules
+      - /app/node_modules/
     ports:
       - "3001:8080"
     environment:
@@ -24,7 +20,9 @@ services:
       MYSQL_USER: root
       MYSQL_DB: messages
       MYSQL_PASSWORD: password
-  
+      NODE_ENV: development
+      DOCKERIZE_VERSION: v0.6.1
+
   messagedb:
     build: ./messagedb
     volumes:
@@ -34,6 +32,6 @@ services:
     environment:
        MYSQL_DATABASE: messages
        MYSQL_ROOT_PASSWORD: password
-
+  
 volumes:
-    mysql_data:
+  mysql_data:
