@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    working_directory: /app
+    docker:
+      - image: docker/compose:1.24.1
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: spin up db
+          command: docker-compose -f ./circleci-compose.yml up -d messagedb 
+      - run:
+          name: wait for db
+          command: docker-compose -f ./circleci-compose.yml run server ./wait-for-db.sh
+      - run:
+          name: Run server tests
+          command: docker-compose -f ./circleci-compose.yml run server
+      - run:
+          name: Run client tests
+          command: docker-compose -f ./circleci-compose.yml run client
+      
+

@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "node server.js",
-    "test": "mocha test --exit && ./wait-for-db.sh && mocha integrationTests --exit"
+    "test": "mocha test --exit && mocha integrationTests --exit"
   },
   "dependencies": {
     "express": "^4.17.1",
