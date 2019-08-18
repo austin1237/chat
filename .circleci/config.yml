@@ -8,11 +8,8 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Install pip
-          command: apk add --no-cache py-pip=9.0.0-r1
-      - run:
           name: Install docker-compose
-          command: pip install docker-compose==1.12.0
+          command: sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
       - run:
           name: spin up db
           command: docker-compose -f ./circleci-compose.yml up -d messagedb 
