@@ -3,16 +3,10 @@ jobs:
   build:
     working_directory: /app
     docker:
-      - image: docker:19.03
+      - image: docker/compose:1.24.1
     steps:
       - checkout
       - setup_remote_docker
-      - run:
-          name: install alpine deps
-          command: apk add py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
-      - run:
-          name: Install docker-compose
-          command: pip install docker-compose
       - run:
           name: spin up db
           command: docker-compose -f ./circleci-compose.yml up -d messagedb 
