@@ -6,7 +6,6 @@ services:
     environment:
       CI: "true"
     
-
   server:
     build: ./server
     command: 'npm test'
@@ -23,6 +22,3 @@ services:
     environment:
        MYSQL_DATABASE: messages
        MYSQL_ROOT_PASSWORD: password
-  
-volumes:
-  mysql_data:
