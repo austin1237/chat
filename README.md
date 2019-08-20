@@ -15,13 +15,28 @@ docker-compose up
 ```
 
 ## Client
-The web app runs on http://localhost:3000
+The web app runs on http://localhost:3000 
+
+### Run Tests
+To run the tests for the client run the following command
+```bash
+make test_client
+```
 
 ## Server
 The api runs on http://localhost:3001
+### Run Tests
+To run the tests for the server run the following command
+```bash
+make test_server
+```
 
 ## DB
 The DB runs on http://localhost:3306
+NOTE: schema setup/seeding will  only occur first time this container spins up. To rerun the setup sql in ./messagedb/devSeedSql run the follow command
+```bash
+make wipe_and_seed_messagedb
+```
 
 
 

@@ -5,6 +5,7 @@ const setUp =  (io, db) =>{
 
     io.on('connection', (socket) =>{
         socket.on('sendMessage', async (message) =>{
+            let {id} = socket
             message.db = db
             try{
                 validator.validateMessage(message)
@@ -15,7 +16,8 @@ const setUp =  (io, db) =>{
                         name: 'server',
                         text: `error occured during validation ${e}`
                     }
-                    return io.emit('receiveMessage', errMessage);
+                    // Return error message only to client that send the message up
+                    return io.to(id).emit('receiveMessage', errMessage);
                 }
                 message.name = 'anonymous';
                 
@@ -30,13 +32,13 @@ const setUp =  (io, db) =>{
                     name: "server",
                     text: `error occured trying to save the message to the db`
                 }
-                return io.emit('receiveMessage', errMessage);
+                // Return error message only to client that send the message up
+                return io.to(id).emit('receiveMessage', errMessage);
             }
 
             io.emit('receiveMessage', message);
             });
     });
-
 }
 
 exports.setUp = setUp
